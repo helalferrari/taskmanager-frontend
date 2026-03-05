@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import {FormRegister} from "@/components/FormRegister";
 import {redirect} from "next/navigation";
+import {cookies} from "next/headers";
 
 export default function Cadastro() {
     const handleRegister = async (_: string, formData: FormData) => {
@@ -40,7 +41,14 @@ export default function Cadastro() {
             if(!token) {
                 return message || error;
             } else {
-                
+                const cookieStore = await cookies();
+
+                cookieStore.set('token', token, {
+                    httpOnly: true,
+                    secure: true,
+                    path: "/",
+                    maxAge: 60 * 60 * 24,
+                });
             }
         } catch {
             console.error('handlerRegister failed');

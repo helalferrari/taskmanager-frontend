@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import {FormRegister} from "@/components/FormRegister";
+import {redirect} from "next/navigation";
 
 export default function Cadastro() {
     const handleRegister = async (_: string, formData: FormData) => {
@@ -39,15 +40,14 @@ export default function Cadastro() {
             if(!token) {
                 return message || error;
             } else {
-                //redirect("/tasks");
-                console.log(token);
-                return "cadastro com sucesso, sem redirect ainda";
+                
             }
         } catch {
             console.error('handlerRegister failed');
 
             return "Erro no Cadastro";
         }
+        redirect("/tasks");
     }
     return (
         <div className="grid gap-y-4 px-8 min-w-100 py-12 bg-[#fdfcfc] rounded-3xl shadow-xl">
